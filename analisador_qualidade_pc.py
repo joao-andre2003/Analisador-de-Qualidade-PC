@@ -22,7 +22,7 @@ for slave_id in slave_ids:
             analisador.serial.baudrate = BAUDRATE
             analisador.serial.bytesize = 8
             analisador.serial.parity = paridade
-            analisador.serial.stopbits = 1
+            analisador.serial.stopbits = 2
             analisador.serial.timeout = 1.0
             
             dados = analisador.read_registers(registeraddress=2, number_of_registers=2, functioncode=4)
@@ -42,7 +42,5 @@ for slave_id in slave_ids:
         break
 
 if not conectado:
-    print("\n❌ Nenhuma combinação respondeu.")
-    print("\nÚltima checagem:")
-    print("1. O app RedeMB foi TOTALMENTE FECHADO? (Se ele estiver rodando, o Python não recebe resposta).")
-    print("2. A velocidade 57600 está correta? Tente trocar BAUDRATE para 9600 no topo do script e rodar de novo.")
+    print("\nNenhuma combinação respondeu.")
+input("")
