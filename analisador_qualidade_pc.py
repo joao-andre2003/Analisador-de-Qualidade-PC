@@ -3,13 +3,13 @@ import time
 
 PORTA_COM = 'COM3'
 SLAVE_ID = 2
-REGISTRADOR = 2
+BAUDRATE = 57600
 
 while(True):
     try: 
         analisador = minimalmodbus.Instrument(PORTA_COM, SLAVE_ID)
 
-        analisador.serial.baudrate = 57600
+        analisador.serial.baudrate = BAUDRATE
         analisador.serial.bytesize = 8
         analisador.serial.parity   = minimalmodbus.serial.PARITY_NONE
         analisador.serial.stopbits = 1
@@ -22,8 +22,9 @@ while(True):
 
 while(True):
     try:
-        valor_inteiro = analisador.read_register(REGISTRADOR, functioncode=3)
-        print(f"Leitura de registrador (Int): {valor_inteiro}")
+        dados = analisador.read_registers(registeraddress=2, number_of_registers=74, functioncode=4)
+        print(f"Total de valores recebidos: {len(dados)}")
+        print("Valores brutos dos registradores:", dados)
 
     except Exception as e:
         print(f"Erro na comunicação: {e}")
